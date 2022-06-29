@@ -9,6 +9,7 @@ const human = Object.create({}, {
   },
   dateOfBirth: {
     set: function (v) {
+      this.birthDate = v
       this.age = new Date().getFullYear() - v.getFullYear()
     }
   }

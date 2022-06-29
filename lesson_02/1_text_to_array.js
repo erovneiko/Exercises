@@ -1,6 +1,6 @@
-function text_to_array(text) {
+function textToArray(text) {
   return text.split(' ').map((w) =>
-    new Object({
+    Object({
       word: w,
       length: w.length,
       isCapitalized: /[A-Z]/.test(w.at(1))
