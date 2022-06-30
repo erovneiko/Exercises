@@ -1,24 +1,24 @@
 function Calc() {
-  let Operations = []
-  let History = []
+  let operations = []
+  let history = []
 
   this.addOperation = function (name, func) {
-    Operations.push({ name: name, func: func })
+    operations.push({ name: name, func: func })
   }
 
   this.operation = function (expr) {
     let token = expr.split(' ')
-    History.push({ operation: token[1], operands: [token[0], token[2]] })
-    return Operations.find((item) => item.name == token[1])
+    history.push({ operation: token[1], operands: [token[0], token[2]] })
+    return operations.find((item) => item.name == token[1])
       .func(Number(token[0]), Number(token[2]))
   }
 
   this.history = function () {
-    return History
+    return history
   }
 
   this.clearHistory = function () {
-    History = []
+    history = []
   }
 
   this.addOperation('+', (a, b) => a + b)
