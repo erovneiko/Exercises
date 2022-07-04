@@ -10,7 +10,7 @@ Rect.prototype = {
 }
 
 const Square = function(a) {
-  return new Rect(a, a)
+  Object.setPrototypeOf(this, new Rect(a, a))  
 }
 
 var rect = new Rect(1, 3)
