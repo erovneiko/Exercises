@@ -9,12 +9,17 @@ const Yard = function (type) {
   }
   
   this.repair = function (ship) { 
-    if (this.check(ship)) 
-      Object.getPrototypeOf(ship).repair()
+    if (this.check(ship)) {
+      proto = Object.getPrototypeOf(ship)
+      proto.lastRepair = new Date
+      console.log(`Корабль "${proto.name}" отремонтирован "${proto.lastRepair.toLocaleDateString()}"`) 
+    }
   }
   
   this.paint = function (ship, color) { 
-    Object.getPrototypeOf(ship).paint(color)
+    proto = Object.getPrototypeOf(ship)
+    proto.color = color
+    console.log(`Корабль "${proto.name}" перекрашен в "${proto.color}" цвет`)
   }
   
   this.change = function (ship1, ship2) { 
@@ -59,16 +64,6 @@ const Ship = function (name, type, color) {
   this.name = name
   this.color = color
   this.lastRepair = new Date
-
-  this.repair = function () {
-    this.lastRepair = new Date
-    console.log(`Корабль "${this.name}" отремонтирован "${this.lastRepair.toLocaleDateString()}"`) 
-  }
-
-  this.paint = function (color) {
-    this.color = color
-    console.log(`Корабль "${this.name}" перекрашен в "${this.color}" цвет`) 
-  }
 }
 
 const MotorShip = function (name, power, material, color) {
