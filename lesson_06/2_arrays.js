@@ -1,42 +1,27 @@
-function createAndAppendTagUL(node) {
-  var ul = document.createElement("ul")
-
-  if (!node)
-    document.querySelector("div").append(ul)
-  else
-    node.append(ul)
-
-  return ul
+function createAndAppendTag(node, tag) {
+  let sub = document.createElement(tag)
+  node.append(sub)
+  return sub
 }
 
-function createAndAppendTagLI(node, li, text) {
-  li = document.createElement("li")
-  li.textContent = text
-  node.append(li)
-  return li
-}
+function renderArrayAsList(node, arr) {
+  if (!arr.length) return
+  if (!node) throw Error("Empty node!")
 
-function createTagLI_IfNecessary(li) {
-  if (li)
-    return li
-  else
-    return document.createElement("li")
-}
-
-function renderArrayAsList(arr, node = null) {
-  if (arr.length)
-    var ul = createAndAppendTagUL(node)
-
-  var li = null
+  let ul = createAndAppendTag(node, "ul")
+  let li = null
 
   arr.forEach(elem => {
-    if (typeof elem == "string")
-      li = createAndAppendTagLI(ul, li, elem)
+    if (typeof elem == "string") {
+      li = createAndAppendTag(ul, "li")
+      li.textContent = elem
+    }
     else {
-      li = createTagLI_IfNecessary(li)
-      renderArrayAsList(elem, li)
+      if (!li) li = createAndAppendTag(ul, "li")
+      renderArrayAsList(li, elem)
     }
   })
 }
 
-renderArrayAsList(["Item", ["Item2", ["Item3"]]])
+renderArrayAsList(document.querySelector("div.array"), 
+                  ["Item", ["Item2", ["Item3"]]])
