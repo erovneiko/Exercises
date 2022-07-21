@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<style>
+  html {
+    height: 100%;
+  }
+
+  body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .calculator {
+    background-color: lightgray;
+    width: 302px;
+    padding: 20px;
+  }
+
+  .display {
+    border: 2px solid darkgray;
+    background-color: white;
+    margin: 6px 6px 20px 6px;
+    height: 60px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 28pt;
+    color: gray;
+    vertical-align: middle;
+    line-height: 60px;
+    padding-left: 8px;
+  }
+
+  .button {
+    border: 2px solid darkgray;
+    background-color: white;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    margin: 6px 4px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: x-large;
+    color: gray;
+    cursor: pointer;
+  }
+
+</style>
+
+<body>
+  <div class="calculator">
+    <div class="display"></div>
+    <div class="buttons">
+      <div class="button">1</div>
+      <div class="button">2</div>
+      <div class="button">3</div>
+      <div class="button">4</div>
+      <div class="button">5</div>
+      <div class="button">6</div>
+      <div class="button">7</div>
+      <div class="button">8</div>
+      <div class="button">9</div>
+      <div class="button">0</div>
+      <div class="button">C</div>
+      <div class="button">=</div>
+    </div>
+  </div>
+</body>
+
+<script src="2_calculator.js"></script>
+<script>
+  const display = document.querySelector(".display")
+  const buttons = document.querySelector(".buttons")
+
+  const calculator = new Calculator(display, buttons)
+  calculator.addOperation('+', (a, b) => a + b)
+  calculator.addOperation('-', (a, b) => a - b)
+  calculator.addOperation('*', (a, b) => a * b)
+  calculator.addOperation('/', (a, b) => a / b)
+
+  // Input Handler
+  function handleInput(keyValue) {
+    if (calculator.enterOperation(keyValue))
+      return
+
+    switch (keyValue) {
+      case 'c':
+      case 'C':
+        calculator.clear()
+        break
+      case '=':
+      case 'Enter':
+        calculator.operate()
+        break
+      case 'BS':
+      case 'Backspace':
+        calculator.backspace()
+        break
+      default:
+        calculator.enterOperand(keyValue)
+    }
+  }
+
+  // Screen Buttons Handler
+  buttons.addEventListener('click', event => {
+    const buttonValue = event.target.textContent
+    handleInput(buttonValue)
+  })
+
+  // Keyboard Buttons Handler
+  document.addEventListener('keypress', event => {
+    const keyValue = event.key
+    handleInput(keyValue)
+  })
+
+  // Backspace Button Handler
+  document.addEventListener('keydown', event => {
+    const keyValue = event.key
+    if (keyValue == 'Backspace')
+      handleInput(keyValue)
+  })
+</script>
+
+</html>
