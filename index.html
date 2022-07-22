@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+  <meta content="dark light" name="color-scheme">
+  <meta name="viewport" content="width=device-type, initial-scale=1">
+</head>
+
 <style>
   html {
     height: 100%;
@@ -69,58 +75,19 @@
   </div>
 </body>
 
-<script src="2_calculator.js"></script>
+<script src="calculator.js"></script>
+<script src="calc_view.js"></script>
+<script src="dispatcher.js"></script>
+
 <script>
-  const display = document.querySelector(".display")
-  const buttons = document.querySelector(".buttons")
-
-  const calculator = new Calculator(display, buttons)
-  calculator.addOperation('+', (a, b) => a + b)
-  calculator.addOperation('-', (a, b) => a - b)
-  calculator.addOperation('*', (a, b) => a * b)
-  calculator.addOperation('/', (a, b) => a / b)
-
-  // Input Handler
-  function handleInput(keyValue) {
-    if (calculator.enterOperation(keyValue))
-      return
-
-    switch (keyValue) {
-      case 'c':
-      case 'C':
-        calculator.clear()
-        break
-      case '=':
-      case 'Enter':
-        calculator.operate()
-        break
-      case 'BS':
-      case 'Backspace':
-        calculator.backspace()
-        break
-      default:
-        calculator.enterOperand(keyValue)
-    }
-  }
-
-  // Screen Buttons Handler
-  buttons.addEventListener('click', event => {
-    const buttonValue = event.target.textContent
-    handleInput(buttonValue)
-  })
-
-  // Keyboard Buttons Handler
-  document.addEventListener('keypress', event => {
-    const keyValue = event.key
-    handleInput(keyValue)
-  })
-
-  // Backspace Button Handler
-  document.addEventListener('keydown', event => {
-    const keyValue = event.key
-    if (keyValue == 'Backspace')
-      handleInput(keyValue)
-  })
+  new Dispatcher(
+    new Calculator()
+      .addOperation('+', (a, b) => a + b)
+      .addOperation('-', (a, b) => a - b)
+      .addOperation('*', (a, b) => a * b)
+      .addOperation('/', (a, b) => a / b),
+    new CalcView(".display", ".buttons")
+  )
 </script>
 
 </html>
