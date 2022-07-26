@@ -1,14 +1,14 @@
-class Dispatcher {
+class CalcDispatcher {
   constructor(calculator, view) {
     this.calculator = calculator
     this.view = view
     this.view.calculator = this.calculator
     this.view.addListeners(key => this.handleInput(key))
-    this.view.addButtons(this.calculator.operations)
+    this.view.addButtons()
   }
 
   handleInput(key) {
-    if (!this.calculator.enterOperation(key))
+    if (!this.calculator.enterOperator(key))
       switch (key) {
         case 'c':
         case 'C':

@@ -1,7 +1,9 @@
 class CalcView {
-  constructor(display_class, buttons_class) {
-    this.display = document.querySelector(display_class)
-    this.buttons = document.querySelector(buttons_class)
+  calculator = null
+
+  constructor(displayClass, buttonsClass) {
+    this.display = document.querySelector(displayClass)
+    this.buttons = document.querySelector(buttonsClass)
   }
 
   addListeners(handler) {
@@ -19,8 +21,8 @@ class CalcView {
     })
   }
 
-  addButtons(operations) {
-    operations.forEach(operation => {
+  addButtons() {
+    this.calculator.operations.forEach(operation => {
       let item = document.createElement('div')
       item.classList.add('button')
       item.textContent = operation.operation

@@ -3,7 +3,7 @@ class Calculator {
   history = []
 
   previousOperand = null;
-  currentOperation = null;
+  currentOperator = null;
   currentOperand = null;
 
   addOperation(operation, func) {
@@ -11,12 +11,12 @@ class Calculator {
     return this
   }
 
-  enterOperation(operation) {
-    let item = this.operations.find(item => item.operation == operation)
+  enterOperator(operator) {
+    let item = this.operations.find(item => item.operation == operator)
 
     if (item) {
       this.previousOperand = this.currentOperand
-      this.currentOperation = operation
+      this.currentOperator = operator
       this.currentOperand = null
       return true
     }
@@ -33,25 +33,25 @@ class Calculator {
   clear() {
     this.currentOperand = null
     this.previousOperand = null
-    this.currentOperation = null
+    this.currentOperator = null
   }
 
   operate() {
-    if (!this.currentOperation)
+    if (!this.currentOperator)
       return
 
     let result = this.operations
-      .find(item => item.operation == this.currentOperation)
+      .find(item => item.operation == this.currentOperator)
       .func(+this.previousOperand, +this.currentOperand)
 
     this.history.push({
-      operation: this.currentOperation,
+      operation: this.currentOperator,
       operands: [this.previousOperand, this.currentOperand],
       result: result.toString()
     })
 
     this.currentOperand = result.toString()
-    this.currentOperation = null
+    this.currentOperator = null
     this.previousOperand = null
     return result
   }
@@ -74,7 +74,7 @@ class Calculator {
 // calculator.addOperation('+', (a, b) => a + b)
 // calculator.addOperation('*', (a, b) => a * b)
 // calculator.enterOperand(10)
-// calculator.enterOperation('*')
+// calculator.enterOperator('*')
 // calculator.enterOperand(2)
 // console.log(calculator.operate())
 // console.log('OK')
