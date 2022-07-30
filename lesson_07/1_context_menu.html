@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<style>
+  html {
+    height: 100%;
+  }
+
+  body {
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+</style>
+
+<body>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+  molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+  numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+  optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+  obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+  nihil, eveniet aliquid culpa officia aut!
+</body>
+
+<script>
+  const notAllowed = event => {
+    alert('Операция запрещена!')
+    event.preventDefault()
+  }
+  
+  const html = document.querySelector('html')
+  html.oncopy = notAllowed
+  html.oncut = notAllowed
+  html.oncontextmenu = notAllowed
+</script>
+
+</html>
