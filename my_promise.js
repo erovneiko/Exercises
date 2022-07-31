@@ -4,16 +4,22 @@ class MyPromise {
   thenCallbacks = []
   catchCallbacks = []
 
-  constructor(exec) {
+  constructor(callback) {
     this.state = 'pending'
-    setTimeout(exec(this.resolve, this.reject), 0)
+    setTimeout(callback, 0, this.resolve, this.reject)
   }
 
   resolve = (value) => {
     if (this.state == 'pending') {
       this.state = 'fulfilled'
       this.value = value
-      this.thenCallbacks.forEach((callback) => callback(value))
+
+      let promise = this
+      this.thenCallbacks.forEach((callback) => {
+        promise = new MyPromise((resolve, reject) => {
+          resolve(callback(promise))
+        })
+      })
     }
   }
 
@@ -21,7 +27,13 @@ class MyPromise {
     if (this.state == 'pending') {
       this.state = 'rejected'
       this.value = value
-      this.catchCallbacks.forEach((callback) => callback(value))
+
+      let promise = this
+      this.catchCallbacks.forEach((callback) => {
+        promise = new MyPromise((resolve, reject) => {
+          reject(callback(promise))
+        })
+      })
     }
   }
 
@@ -29,8 +41,10 @@ class MyPromise {
     if (this.state == 'pending')
       this.thenCallbacks.push(callback)
 
-      else if (this.state == 'fulfilled')
-      callback(this.value)
+    else if (this.state == 'fulfilled')
+      return new MyPromise((resolve, reject) => {
+        resolve(callback(this))
+      })
 
     return this
   }
@@ -40,35 +54,37 @@ class MyPromise {
       this.catchCallbacks.push(callback)
 
     else if (this.state == 'rejected')
-      callback(this.value)
+      return new MyPromise((resolve, reject) => {
+        reject(callback(this))
+      })
 
     return this
   }
 
   static resolve = (value) => {
-    return new MyPromise((resolve, reject) => { 
-      resolve(value) 
+    return new MyPromise((resolve, reject) => {
+      resolve(value)
     })
   }
 
   static reject = (value) => {
-    return new MyPromise((resolve, reject) => { 
-      reject(value) 
+    return new MyPromise((resolve, reject) => {
+      reject(value)
     })
   }
 }
 
 // Tests
-// const myPromise = new MyPromise((resolve, reject) => {
-//   setTimeout(() => {
-//     resolve('done')
-//   }, 1000)
-// })
+const myPromise = new MyPromise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('done')
+  }, 1000)
+})
 
-// myPromise
-//   .then(() => { console.log('resolved') })
-//   .catch(() => { console.log('rejected') })
+myPromise
+  .then(() => { console.log('resolved') })
+  .catch(() => { console.log('rejected') })
 
-// setTimeout(() => console.log(myPromise), 0)
-// setTimeout(() => console.log(myPromise), 1000)
-// setTimeout(() => console.log(myPromise), 2000)
+setTimeout(() => console.log(myPromise), 1000)
+setTimeout(() => console.log(myPromise), 2000)
+setTimeout(() => console.log(myPromise), 3000)
