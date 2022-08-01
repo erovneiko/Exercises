@@ -6,7 +6,7 @@ class MyPromise {
 
   constructor(callback) {
     this.state = 'pending'
-    setTimeout(callback, 0, this.resolve, this.reject)
+    callback(this.resolve, this.reject)
   }
 
   resolve = (value) => {
@@ -17,7 +17,10 @@ class MyPromise {
       let promise = this
       this.thenCallbacks.forEach((callback) => {
         promise = new MyPromise((resolve, reject) => {
-          resolve(callback(promise))
+          if (promise.value)
+            resolve(callback(promise.value))
+          else
+            resolve(callback(promise))
         })
       })
     }
@@ -31,7 +34,10 @@ class MyPromise {
       let promise = this
       this.catchCallbacks.forEach((callback) => {
         promise = new MyPromise((resolve, reject) => {
-          reject(callback(promise))
+          if (promise.value)
+            reject(callback(promise.value))
+          else
+            reject(callback(promise))
         })
       })
     }
