@@ -14,14 +14,9 @@ class MyPromise {
       this.state = 'fulfilled'
       this.value = value
 
-      let promise = this
+      let result = value
       this.thenCallbacks.forEach((callback) => {
-        promise = new MyPromise((resolve, reject) => {
-          if (promise.value)
-            resolve(callback(promise.value))
-          else
-            resolve(callback(promise))
-        })
+        result = resolve(callback(result))
       })
     }
   }
@@ -31,14 +26,9 @@ class MyPromise {
       this.state = 'rejected'
       this.value = value
 
-      let promise = this
+      let result = value
       this.catchCallbacks.forEach((callback) => {
-        promise = new MyPromise((resolve, reject) => {
-          if (promise.value)
-            reject(callback(promise.value))
-          else
-            reject(callback(promise))
-        })
+        result = reject(callback(promise.value))
       })
     }
   }
