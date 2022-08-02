@@ -16,7 +16,7 @@ class MyPromise {
 
       let result = value
       this.thenCallbacks.forEach((callback) => {
-        result = resolve(callback(result))
+        result = callback(result)
       })
     }
   }
@@ -28,7 +28,7 @@ class MyPromise {
 
       let result = value
       this.catchCallbacks.forEach((callback) => {
-        result = reject(callback(promise.value))
+        result = callback(result)
       })
     }
   }
