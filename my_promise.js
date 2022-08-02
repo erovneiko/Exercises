@@ -38,9 +38,7 @@ class MyPromise {
       this.thenCallbacks.push(callback)
 
     else if (this.state == 'fulfilled')
-      return new MyPromise((resolve, reject) => {
-        resolve(callback(this))
-      })
+      return callback(this.value)
 
     return this
   }
@@ -50,9 +48,7 @@ class MyPromise {
       this.catchCallbacks.push(callback)
 
     else if (this.state == 'rejected')
-      return new MyPromise((resolve, reject) => {
-        reject(callback(this))
-      })
+      return callback(this.value)
 
     return this
   }
