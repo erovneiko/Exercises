@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
+  <script>
+    mocha.setup('bdd');
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+  <script>
+    let assert = chai.assert;
+  </script>
+</head>
+
+<body>
+  <script src="array.js"></script>
+  <script src="array.test.js"></script>
+  <script src="lesson_02/4_sort_numbers.js"></script>
+  <script src="lesson_02/4_sort_numbers.test.js"></script>
+  <script src="lesson_02/3_filter_by_length.js"></script>
+  <script src="lesson_02/3_filter_by_length.test.js"></script>
+  <script src="lesson_03/2_cache.js"></script>
+  <script src="lesson_03/2_cache.test.js"></script>
+  <script src="lesson_03/1_moneybox.js"></script>
+  <script src="lesson_03/1_moneybox.test.js"></script>
+  <script src="lesson_03/3_calculator.js"></script>
+  <script src="lesson_03/3_calculator.test.js"></script>
+  <script src="lesson_03/4_tickets.js"></script>
+  <script src="lesson_03/4_tickets.test.js"></script>
+
+  <div id="mocha"></div>
+
+  <script>
+    mocha.run();
+  </script>
+</body>
+
+</html>
