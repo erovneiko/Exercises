@@ -1,22 +1,12 @@
-describe("Конструктор Calc", () => {
+describe("Constructor Calc", () => {
   const calc = new Calc()
 
-  it("создаёт объект", () => {
-    assert.equal(typeof calc, 'object')
-  })
-
-  it("с методами operation, addOperation, history, clearHistory", () => {
-    assert.isFunction(calc.operation);
-    assert.isFunction(calc.addOperation);
-    assert.isFunction(calc.clearHistory);
-  })
-
-  it("метод operation уже умеет складывать и умножать два операнда", () => {
+  it("the operation method already knows how to add and multiply two operands", () => {
     assert.equal(calc.operation('31 + 32'), 63)
     assert.equal(calc.operation('10 * 2'), 20)
   })
 
-  it("метод addOperation добавляет новые операции (деление)", () => {
+  it("addOperation method adds new operations (divide)", () => {
     let div = (a, b) => a / b
     assert.equal(calc.operations.length, 2)
     calc.addOperation('/', div)
@@ -25,11 +15,11 @@ describe("Конструктор Calc", () => {
     assert.equal(calc.operation('10 / 2'), 5)
   })
 
-  it("атрибут history хранит историю операций", () => {
+  it("the history attribute stores the history of operations", () => {
     assert.equal(JSON.stringify(calc.history), '[{"operation":"+","operands":["31","32"]},{"operation":"*","operands":["10","2"]},{"operation":"/","operands":["10","2"]}]')
   })
 
-  it("метод clearHistory очищает историю операций", () => {
+  it("clearHistory method clears the operation history", () => {
     calc.clearHistory()
     assert.deepEqual(calc.history, [])
   })
