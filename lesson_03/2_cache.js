@@ -9,7 +9,7 @@ function cache() {
   }
 }
 
-const calculate = cache();
-console.log(calculate(3, 3)) // { value: 27, fromCache: false}
-console.log(calculate(2, 10)) // { value: 1024, fromCache: false}
-console.log(calculate(2, 10)) // { value: 1024, fromCache: true}
+// const calculate = cache();
+// console.log(calculate(3, 3)) // { value: 27, fromCache: false}
+// console.log(calculate(2, 10)) // { value: 1024, fromCache: false}
+// console.log(calculate(2, 10)) // { value: 1024, fromCache: true}
