@@ -18,3 +18,10 @@
 // import { Chess } from './chess.js'
 
 // console.log('Chess initialized!')
+
+import './chessboard.js/css/chessboard-1.0.0.css'
+import './chessboard.js/js/chessboard-1.0.0.js'
+
+var board = Chessboard('myBoard', 'start')
+
+
