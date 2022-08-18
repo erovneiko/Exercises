@@ -22,6 +22,9 @@
 import './chessboard.js/css/chessboard-1.0.0.css'
 import './chessboard.js/js/chessboard-1.0.0.js'
 
+// import 'jquery'
+// import 'chessboardjs-import'
+
 var board = Chessboard('myBoard', 'start')
 
 
